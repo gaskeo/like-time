@@ -17,7 +17,7 @@ cs = {
 
 all_users = dict()
 api = InstApi(cs)
-posts = api.get_10_posts_by_link("https://www.instagram.com/instagram/")
+posts = api.get_10_posts_by_link("https://www.instagram.com/julie.rud/")
 
 for i, post in enumerate(posts):
     users = sorted(api.get_user_liked_post(post))

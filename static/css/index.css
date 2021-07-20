@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #FFF;
+    z-index: 1;
+}
+
+@media screen and (min-width: 900px) {
+    header {
+        width: 100%;
+        background-color: #88FFF7;
+        height: 5rem;
+        margin: 0;
+        padding: 0;
+        line-height: 100%;
+
+    }
+
+    .logo {
+        margin-left: 15%;
+        font-family: "Istok Web", sans-serif;
+        font-size: 2em;
+        display: block;
+        line-height: 5rem;
+        vertical-align: middle;
+        text-decoration: none;
+        color: black;
+    }
+
+    .content {
+        width: 80%;
+        margin-left: 10%;
+    }
+
+    .about {
+        font-family: "Noto Sans", sans-serif;
+        font-size: 1.2em;
+        text-align: center;
+        margin-top: 5%;
+        border-radius: 15px;
+        background-color: #7DEDFF;
+        padding: 1rem;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .account-link-input {
+        flex: 1;
+        -webkit-appearance: none;
+        border: none;
+        min-width: 40rem;
+        font-family: "Alegreya Sans", sans-serif;
+        font-size: 2em;
+        padding: 0.5rem 1rem;
+        background-color: #96BAFF;
+        border-radius: 15px 0 0 15px;
+    }
+
+    .account-link-input:focus {
+        outline: none;
+    }
+
+    .account-link-send-button {
+        flex: 1;
+        -webkit-appearance: none;
+        border: none;
+        height: 60px;
+        max-width: 70px;
+        padding: 0.5rem;
+        vertical-align: center;
+        border-radius: 0 15px 15px 0;
+        width: 60px;
+        background: #7C83FD url("/static/images/icons/SVG/magnifier.svg") no-repeat center;
+        background-size: 35px;
+
+    }
+
+    .label-for-link-input {
+        font-family: "Alegreya Sans", sans-serif;
+        font-size: 2em;
+        margin-left: 1rem;
+    }
+
+    .search-content {
+        margin-top: 5%;
+    }
+
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Istok+Web:wght@700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans&family=Noto+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../static/css/index.css">
+
+</head>
+<body>
+
+<header>
+    <a class="logo" href="/">Лайк тайм</a>
+</header>
+<div class="content">
+    <div class="about">
+        <p>
+            Сайт выдает таблицу, кто лайкал последние 10 постов в инстаграме.<br>только для открытых аккаунтов
+        </p>
+    </div>
+    <div class="search-content">
+        <label class="label-for-link-input" for="account-link-input">Ссылка или имя пользователя</label><br>
+
+        <div class="form">
+            <input class="account-link-input" id="account-link-input" type="text" placeholder="ваш аккаунт тут">
+            <button class="account-link-send-button" onclick="showResult()">
+
+        </div>
+    </div>
+</div>
+</body>
+<script src="../static/js/submit_form.js"></script>
+
+</html>
