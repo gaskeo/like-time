@@ -20,7 +20,7 @@
 <header>
     <a class="logo" href="/">Лайк тайм</a>
 </header>
-<div class="content">
+<div class="content" id="content">
     <div class="about">
         <p>
             Сайт выдает таблицу, кто лайкал последние 10 постов в инстаграме.<br>только для открытых аккаунтов
@@ -31,10 +31,10 @@
 
         <div class="form">
             <input class="account-link-input" id="account-link-input" type="text" placeholder="ваш аккаунт тут">
-            <button class="account-link-send-button" onclick="showResult()">
-
+            <button class="account-link-send-button" id="send-button" onclick="showResult()"></button>
         </div>
     </div>
+    <div class="loading" id="loading"></div>
 </div>
 </body>
 <script src="../static/js/submit_form.js"></script>

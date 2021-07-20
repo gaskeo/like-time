@@ -15,31 +15,8 @@ class InstApi:
         self.session = session()
         [self.session.cookies.set(n, m) for n, m in cookies.items()]
         self.inst_text = self.session.get("https://instagram.com").text
-        self.query_hash_for_likes = self.get_query_hash_for_likes()
-        self.query_hash_for_posts = self.get_query_hash_for_posts()
-
-    def get_query_hash_for_likes(self):
-        link_to_js = "https://instagram.com" + self.inst_text[self.inst_text.find('/static/bundles/metro/Consumer.js'):
-                                                              self.inst_text.find('/static/bundles/metro/Consumer.js') +
-                                                              len('/static/bundles/metro/Consumer.js') + 16]
-
-        js = self.session.get(link_to_js)
-        try:
-            return js.text.split("\n")[709].split()[2].split('"')[1]
-        except IndexError:
-            return ""
-
-    def get_query_hash_for_posts(self):
-        link_to_js = "https://instagram.com" + \
-                     self.inst_text[self.inst_text.find('/static/bundles/metro/ConsumerLibCommons.js'):
-                                    self.inst_text.find('/static/bundles/metro/ConsumerLibCommons.js') +
-                                    len('/static/bundles/metro/ConsumerLibCommons.js') + 16]
-
-        js = self.session.get(link_to_js)
-        try:
-            return js.text.split("\n")[595].split()[25].split('"')[1]
-        except IndexError:
-            return ""
+        self.query_hash_for_likes = "d5d763b1e2acf209d62d22d184488e57"
+        self.query_hash_for_posts = "ea4baf885b60cbf664b34ee760397549"
 
     def get_user_liked_post(self, post_shortcode):
         variables = {
@@ -47,7 +24,6 @@ class InstApi:
             "include_reel": False,
             "first": 50
         }
-
         g = self.session.get("https://www.instagram.com/graphql/query/", params={
             "query_hash": self.query_hash_for_likes,
             "variables": dumps(variables)
@@ -77,6 +53,7 @@ class InstApi:
 
     def get_user_id_by_link(self, link):
         account_text = self.session.get(link).text
+        print(account_text)
         user_id = account_text[account_text.index("profilePage_") + len("profilePage_"):]
         user_id = user_id[:user_id.index('"')]
         return user_id
@@ -94,3 +71,5 @@ class InstApi:
 
         return [x["node"]["shortcode"] for x in posts["data"]["user"]["edge_owner_to_timeline_media"]["edges"]]
 
+    def check_account_exist(self, username):
+        return self.session.get(f"https://instagram.com/{username}").status_code == 200

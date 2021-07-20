@@ -90,4 +90,47 @@ body {
         margin-top: 5%;
     }
 
+    .loading {
+        display: none;
+        font-family: "Alegreya Sans", sans-serif;
+        font-size: 2em;
+        margin-left: 1rem;
+        margin-top: 2rem;
+    }
+
+    .loading:before {
+        content: 'загружаю.';
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2rem;
+        animation: spin infinite 2s;
+    }
+
+    #table-likes {
+        width: 100%;
+        font-family: "Alegreya Sans", sans-serif;
+        font-size: 1.4em;
+        line-height: 1.8em;
+    }
+
+    .user-th {
+        text-align: left;
+    }
+}
+
+@keyframes spin {
+    0% {
+        content: 'загружаю.';
+    }
+    25% {
+        content: 'загружаю..';
+    }
+    50% {
+        content: 'загружаю...';
+    }
+    75% {
+        content: 'загружаю..';
+    }
+
+
 }
