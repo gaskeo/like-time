@@ -1,6 +1,7 @@
 from requests import session
 
 from json import dumps
+from json.decoder import JSONDecodeError
 
 
 class InstApi:
@@ -29,12 +30,28 @@ class InstApi:
             "query_hash": self.query_hash_for_likes,
             "variables": dumps(variables)
         })
-        count_liked = g.json()["data"]["shortcode_media"]["edge_liked_by"]["count"]
+        try:
+            json = g.json()
+            if not json["data"]["shortcode_media"]:
+                raise KeyError
+        except JSONDecodeError:
+            return None
+        except KeyError:
+            return None
+        count_liked = json["data"]["shortcode_media"]["edge_liked_by"]["count"]
         count_parsed = 50
         user_liked = [x["node"]["username"] for x in g.json()["data"]["shortcode_media"]["edge_liked_by"]["edges"]]
 
         while count_liked > count_parsed:
-            after = g.json()["data"]["shortcode_media"]["edge_liked_by"]["page_info"]["end_cursor"]
+            try:
+                json = g.json()
+                if not json["data"]["shortcode_media"]:
+                    raise KeyError
+            except JSONDecodeError:
+                continue
+            except KeyError:
+                return None
+            after = json["data"]["shortcode_media"]["edge_liked_by"]["page_info"]["end_cursor"]
 
             variables = {
                 "shortcode": f"{post_shortcode}",
@@ -62,18 +79,27 @@ class InstApi:
                                 "has_threaded_comments": True
                                 })
         })
-        return response.json()["data"]["shortcode_media"]["owner"]["id"]
+        try:
+            json = response.json()
+        except JSONDecodeError:
+            return None
+        if json["data"]["shortcode_media"]:
+            return json["data"]["shortcode_media"]["owner"]["id"]
+        return None
 
     def get_10_posts_by_user_id(self, user_id):
         variables = {
             "id": user_id,
             "first": 10
         }
-        posts = self.session.get("https://www.instagram.com/graphql/query", params={
+        response = self.session.get("https://www.instagram.com/graphql/query", params={
             "query_hash": self.query_hash_for_posts,
             "variables": dumps(variables)
-        }).json()
-
+        })
+        try:
+            posts = response.json()
+        except JSONDecodeError:
+            return None
         return [x["node"]["shortcode"] for x in posts["data"]["user"]["edge_owner_to_timeline_media"]["edges"]]
 
     def check_account_exist(self, username):

@@ -23,17 +23,24 @@ def create_handler(api: InstApi):
             shortcode = path
         all_users = dict()
         user_id = api.get_user_id_by_post_shortcode(shortcode)
+        api.get_user_liked_post(shortcode)
+        if not user_id:
+            return jsonify({"answer": "error", "error-message": "пост не найден, возмжоно аккаунт приватный"})
         posts = api.get_10_posts_by_user_id(user_id)
+        if not posts:
+            return jsonify({"answer": "error", "error-message": "пост не найден, возмжоно аккаунт приватный"})
         post_links = []
         for i, post in enumerate(posts):
             post_links.append(post)
             users = api.get_user_liked_post(post)
+            if not users:
+                return jsonify({"answer": "error", "error-message": "пост не найден, возможно аккаунт приватный"})
             for user in users:
                 if user in all_users:
                     all_users[user].append(i)
                 else:
                     all_users[user] = [i]
         all_users = {user: likes for user, likes in sorted(all_users.items(), key=lambda x: len(x[1]))}
-        return jsonify({"answer": "ok", "users": all_users, "posts": post_links})
+        return jsonify({"answer": "ok", "users": all_users, "posts": post_links, "error-message": ""})
 
     return app
