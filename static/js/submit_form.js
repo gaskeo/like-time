@@ -21,6 +21,7 @@ function showResult() {
                     if (j["answer"] !== "ok") {
                         alert(j["answer"])
                     } else {
+                        let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
                         document.getElementById("loading").style.display = "none"
                         let table = document.createElement("table")
                         table.id = "table-likes"
@@ -30,7 +31,12 @@ function showResult() {
                             let post_cell = document.createElement("th")
                             let post_link = document.createElement("a")
                             post_link.href = "https://instagram.com/p/" + j["posts"][i - 1]
-                            let link_text = document.createTextNode("пост " + i.toString())
+                            let plus
+                            if (width > 999) {
+                                plus = "пост "
+                            } else plus = ""
+                            let link_text = document.createTextNode(plus + i.toString())
+
                             post_link.title = i.toString()
                             post_link.appendChild(link_text)
                             post_cell.appendChild(post_link)

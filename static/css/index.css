@@ -5,26 +5,121 @@ body {
     z-index: 1;
 }
 
-@media screen and (min-width: 900px) {
-    header {
-        width: 100%;
-        background-color: #88FFF7;
-        height: 5rem;
-        margin: 0;
-        padding: 0;
-        line-height: 100%;
+header {
+    width: 100%;
+    background-color: #88FFF7;
+    margin: 0;
+    padding: 0;
+    line-height: 100%;
+}
 
+.logo {
+    font-family: "Istok Web", sans-serif;
+    display: block;
+    vertical-align: middle;
+    text-decoration: none;
+    color: black;
+}
+
+.about {
+    font-family: "Noto Sans", sans-serif;
+    text-align: center;
+    border-radius: 15px;
+    background-color: #7DEDFF;
+
+}
+
+.form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.account-link-input {
+    flex: 1;
+    -webkit-appearance: none;
+    border: none;
+    font-family: "Alegreya Sans", sans-serif;
+    background-color: #96BAFF;
+    border-radius: 15px 0 0 15px;
+}
+
+.account-link-input:focus {
+    outline: none;
+}
+
+.account-link-send-button {
+    flex: 1;
+    -webkit-appearance: none;
+    border: none;
+    vertical-align: center;
+    border-radius: 0 15px 15px 0;
+    background: #7C83FD url("/static/images/icons/SVG/magnifier.svg") no-repeat center;
+}
+
+.account-link-send-button:disabled {
+    background-color: #88FFF7;
+}
+
+.label-for-link-input {
+    font-family: "Alegreya Sans", sans-serif;
+
+}
+
+.loading {
+    display: none;
+    font-family: "Alegreya Sans", sans-serif;
+    margin-left: 1rem;
+    margin-top: 2rem;
+}
+
+.loading:before {
+    content: 'загружаю.';
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    animation: spin infinite 2s;
+}
+
+#table-likes {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: "Alegreya Sans", sans-serif;
+
+}
+
+.user-th {
+    text-align: left;
+}
+
+.user-th a {
+    margin-left: 1rem;
+}
+
+tr a {
+    text-decoration: none;
+    color: #000;
+
+}
+
+tr {
+    border-collapse: collapse;
+    border-bottom: 1px solid #7DEDFF;
+}
+
+.heart {
+    color: red;
+}
+
+@media screen and (min-width: 1000px) {
+    header {
+        height: 5rem;
     }
 
     .logo {
         margin-left: 15%;
-        font-family: "Istok Web", sans-serif;
         font-size: 2em;
-        display: block;
         line-height: 5rem;
-        vertical-align: middle;
-        text-decoration: none;
-        color: black;
     }
 
     .content {
@@ -33,58 +128,28 @@ body {
     }
 
     .about {
-        font-family: "Noto Sans", sans-serif;
         font-size: 1.2em;
-        text-align: center;
         margin-top: 5%;
-        border-radius: 15px;
-        background-color: #7DEDFF;
         padding: 1rem;
     }
 
     .form {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
         margin-top: 1rem;
     }
 
     .account-link-input {
-        flex: 1;
-        -webkit-appearance: none;
-        border: none;
         min-width: 40rem;
-        font-family: "Alegreya Sans", sans-serif;
         font-size: 2em;
         padding: 0.5rem 1rem;
-        background-color: #96BAFF;
-        border-radius: 15px 0 0 15px;
-    }
-
-    .account-link-input:focus {
-        outline: none;
     }
 
     .account-link-send-button {
-        flex: 1;
-        -webkit-appearance: none;
-        border: none;
-        height: 60px;
         max-width: 70px;
         padding: 0.5rem;
-        vertical-align: center;
-        border-radius: 0 15px 15px 0;
-        width: 60px;
-        background: #7C83FD url("/static/images/icons/SVG/magnifier.svg") no-repeat center;
         background-size: 35px;
     }
 
-    .account-link-send-button:disabled {
-        background-color: #88FFF7;
-    }
-
     .label-for-link-input {
-        font-family: "Alegreya Sans", sans-serif;
         font-size: 2em;
         margin-left: 1rem;
     }
@@ -94,53 +159,76 @@ body {
     }
 
     .loading {
-        display: none;
-        font-family: "Alegreya Sans", sans-serif;
         font-size: 2em;
-        margin-left: 1rem;
-        margin-top: 2rem;
-    }
-
-    .loading:before {
-        content: 'загружаю.';
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 2rem;
-        animation: spin infinite 2s;
     }
 
     #table-likes {
-        border-collapse: collapse;
-
-        width: 100%;
-        font-family: "Alegreya Sans", sans-serif;
         font-size: 1.4em;
         line-height: 1.8em;
         margin-top: 2rem;
+    }
+}
 
+@media screen and (max-width: 999px) {
+    header {
+        height: 7rem;
     }
 
-    .user-th {
-        text-align: left;
+    .logo {
+        margin-left: 5%;
+        font-size: 3em;
+        line-height: 7rem;
     }
 
-    .user-th a {
+    .content {
+        width: 90%;
+        margin-left: 5%;
+    }
+
+    .about {
+        font-size: 1.8em;
+        margin-top: 5%;
+        padding: 1rem;
+    }
+
+    .form {
+        margin-top: 1.4rem;
+    }
+
+    .account-link-input {
+        min-width: 25rem;
+        font-size: 3em;
+        padding: 0.5rem 1rem;
+    }
+
+    .account-link-send-button {
+        max-width: 90px;
+        padding: 1rem;
+        background-size: 45px;
+    }
+
+    .label-for-link-input {
+        font-size: 2em;
         margin-left: 1rem;
     }
 
-    tr a {
-        text-decoration: none;
-        color: #000;
-
+    .search-content {
+        margin-top: 5%;
     }
 
-    tr {
-        border-collapse: collapse;
-        border-bottom: 1px solid #7DEDFF;
+    .loading {
+        font-size: 2.2em;
     }
 
-    .heart {
-        color: red;
+    #table-likes {
+        font-size: 2em;
+        line-height: 2.05em;
+        margin-top: 4rem;
+    }
+
+    .user-th {
+        max-width: 12rem;
+        word-wrap: break-word;
     }
 }
 
@@ -157,6 +245,4 @@ body {
     75% {
         content: 'загружаю..';
     }
-
-
 }
