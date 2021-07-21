@@ -111,6 +111,14 @@ tr {
     color: red;
 }
 
+.error {
+    width: auto;
+    background-color: #FF8888;
+    font-family: "Noto Sans", sans-serif;
+    border-radius: 15px;
+    display: none;
+}
+
 @media screen and (min-width: 1000px) {
     header {
         height: 5rem;
@@ -165,6 +173,12 @@ tr {
     #table-likes {
         font-size: 1.4em;
         line-height: 1.8em;
+        margin-top: 2rem;
+    }
+
+    .error {
+        font-size: 1.4em;
+        padding: 1rem;
         margin-top: 2rem;
     }
 }
@@ -229,6 +243,12 @@ tr {
     .user-th {
         max-width: 12rem;
         word-wrap: break-word;
+    }
+
+    .error {
+        font-size: 2em;
+        padding: 1rem;
+        margin-top: 2rem;
     }
 }
 

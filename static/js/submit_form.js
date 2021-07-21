@@ -8,6 +8,8 @@ function showResult() {
     }
     let form = new FormData()
     form.append("shortcode_or_link", link_or_username.value)
+    document.getElementById("error").style.display = "none"
+
     document.getElementById("loading").style.display = "block"
     document.getElementById("send-button").disabled = true
     if (document.getElementById("table-likes")) {
@@ -19,6 +21,8 @@ function showResult() {
             if (status === 200) {
                 r.json().then(function (j) {
                     if (j["answer"] !== "ok") {
+                        document.getElementById("error").style.display = "block"
+                        document.getElementById("error").textContent = j["error-message"]
                         alert(j["answer"])
                     } else {
                         let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
@@ -76,13 +80,16 @@ function showResult() {
                     }
                 })
             } else {
-                alert(status);
-                document.getElementById("loading").style.display = "none"
+                document.getElementById("error").style.display = "block"
+                document.getElementById("error").textContent = "что-то пошло не так, " +
+                    "я даже не знаю, что именно..."
+                    document.getElementById("loading").style.display = "none"
                 document.getElementById("send-button").disabled = false
 
             }
         }
     )
+    return false;
 }
 
 function mapToArray(map) {

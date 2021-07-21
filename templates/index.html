@@ -28,11 +28,14 @@
     <div class="search-content">
         <label class="label-for-link-input" for="account-link-input">Ссылка на любой пост пользователя</label><br>
 
-        <div class="form">
+        <form class="form">
             <input class="account-link-input" id="account-link-input" type="text" placeholder="instagram.com/p/...">
-            <button class="account-link-send-button" id="send-button" onclick="showResult()"></button>
-        </div>
+            <input class="account-link-send-button" id="send-button" type="submit" onclick="return showResult()"
+                   value="">
+        </form>
     </div>
+    <div class="error" id="error">error</div>
+
     <div class="loading" id="loading"></div>
 </div>
 </body>
