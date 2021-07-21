@@ -8,7 +8,7 @@ function showResult() {
     }
 
     let form = new FormData()
-    form.append("shortcode_or_link", link_or_username.value)
+    form.append("username_or_link", link_or_username.value)
 
     document.getElementById("error").style.display = "none"
     document.getElementById("loading").style.display = "block"

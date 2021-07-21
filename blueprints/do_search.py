@@ -13,17 +13,32 @@ def create_handler(api: InstApi):
     @app.route("/do_search", methods=["POST"])
     def do_search():
         form = SearchForm()
-        shortcode_or_link = form.shortcode_or_link.data
-        parse_link = urlparse(shortcode_or_link)
-        path = parse_link.path
-        path = path[:-1] if path.endswith("/") else path
-        if "/" in path:
-            shortcode = path[path.rfind('/') + 1:]
+        username_or_link = form.username_or_link.data
+
+        if "/" not in username_or_link:
+            user_id = api.get_user_id_by_username(username_or_link)
+            if not user_id:
+                return jsonify({"answer": "error", "error-message": "пользователь не найден,"
+                                                                    " возмжоно аккаунт приватный"})
         else:
-            shortcode = path
+            parse_link = urlparse(username_or_link)
+            path = parse_link.path
+            sections = tuple(filter(len, path.split("/")))
+            print(sections)
+
+            if "p" in sections:
+                user_id = api.get_user_id_by_post_shortcode(sections[-1])
+                if not user_id:
+                    return jsonify({"answer": "error", "error-message": "пост не найден, возмжоно аккаунт приватный"})
+            else:
+                print(13)
+                user_id = api.get_user_id_by_username(sections[-1])
+                print(user_id)
+                if not user_id:
+                    return jsonify({"answer": "error", "error-message": "пользователь не найден,"
+                                                                        " возмжоно аккаунт приватный"})
+
         all_users = dict()
-        user_id = api.get_user_id_by_post_shortcode(shortcode)
-        api.get_user_liked_post(shortcode)
         if not user_id:
             return jsonify({"answer": "error", "error-message": "пост не найден, возмжоно аккаунт приватный"})
         posts = api.get_10_posts_by_user_id(user_id)

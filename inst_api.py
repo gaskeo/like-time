@@ -1,4 +1,4 @@
-from requests import session
+from requests import session, get
 
 from json import dumps
 from json.decoder import JSONDecodeError
@@ -101,6 +101,21 @@ class InstApi:
         except JSONDecodeError:
             return None
         return [x["node"]["shortcode"] for x in posts["data"]["user"]["edge_owner_to_timeline_media"]["edges"]]
+
+    def get_user_id_by_username(self, username):
+        response = get(f"https://www.instagram.com/web/search/topsearch", params={"query": username},
+                       headers=self.headers)
+        try:
+            json = response.json()
+        except JSONDecodeError:
+            return None
+        if json:
+            for user in json["users"]:
+                if user["user"]["username"] == username:
+                    if user["user"]["is_private"]:
+                        return None
+                    return user["user"]["pk"]
+        return None
 
     def check_account_exist(self, username):
         return self.session.get(f"https://instagram.com/{username}").status_code == 200
