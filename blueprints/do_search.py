@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, jsonify
 from forms import SearchForm
 
+from urllib.parse import urlparse
 
 from inst_api import InstApi
 
@@ -13,13 +14,13 @@ def create_handler(api: InstApi):
     def do_search():
         form = SearchForm()
         shortcode_or_link = form.shortcode_or_link.data
-        if shortcode_or_link.endswith("/"):
-            shortcode_or_link = shortcode_or_link[:-1]
-        if "/" in shortcode_or_link:
-            shortcode = shortcode_or_link[shortcode_or_link.rfind("/") + 1:]
+        parse_link = urlparse(shortcode_or_link)
+        path = parse_link.path
+        path = path[:-1] if path.endswith("/") else path
+        if "/" in path:
+            shortcode = path[path.rfind('/') + 1:]
         else:
-            shortcode = shortcode_or_link
-
+            shortcode = path
         all_users = dict()
         user_id = api.get_user_id_by_post_shortcode(shortcode)
         posts = api.get_10_posts_by_user_id(user_id)
