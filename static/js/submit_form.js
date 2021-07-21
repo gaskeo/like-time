@@ -7,7 +7,7 @@ function showResult() {
         return
     }
     let form = new FormData()
-    form.append("link_or_username", link_or_username.value)
+    form.append("shortcode_or_link", link_or_username.value)
     document.getElementById("loading").style.display = "block"
     document.getElementById("send-button").disabled = true
     if (document.getElementById("table-likes")) {
@@ -26,11 +26,11 @@ function showResult() {
                         table.id = "table-likes"
                         let row = document.createElement("tr")
                         row.appendChild(document.createElement("th"))
-                        for (let i = 1; i < 11; i++) {
+                        for (let i = 1; i < j["posts"].length + 1; i++) {
                             let post_cell = document.createElement("th")
                             let post_link = document.createElement("a")
-                            post_link.href = "https://instagram.com/p/" + j["posts"][i]
-                            let link_text = document.createTextNode(i.toString())
+                            post_link.href = "https://instagram.com/p/" + j["posts"][i - 1]
+                            let link_text = document.createTextNode("пост " + i.toString())
                             post_link.title = i.toString()
                             post_link.appendChild(link_text)
                             post_cell.appendChild(post_link)
@@ -57,6 +57,7 @@ function showResult() {
                                 let like = document.createElement("th")
                                 if (likes.includes(post)) {
                                     like.textContent = '\u2764'
+                                    like.className = "heart"
                                 }
                                 row.appendChild(like)
 
@@ -70,6 +71,9 @@ function showResult() {
                 })
             } else {
                 alert(status);
+                document.getElementById("loading").style.display = "none"
+                document.getElementById("send-button").disabled = false
+
             }
         }
     )

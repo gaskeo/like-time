@@ -77,7 +77,10 @@ body {
         width: 60px;
         background: #7C83FD url("/static/images/icons/SVG/magnifier.svg") no-repeat center;
         background-size: 35px;
+    }
 
+    .account-link-send-button:disabled {
+        background-color: #88FFF7;
     }
 
     .label-for-link-input {
@@ -107,14 +110,37 @@ body {
     }
 
     #table-likes {
+        border-collapse: collapse;
+
         width: 100%;
         font-family: "Alegreya Sans", sans-serif;
         font-size: 1.4em;
         line-height: 1.8em;
+        margin-top: 2rem;
+
     }
 
     .user-th {
         text-align: left;
+    }
+
+    .user-th a {
+        margin-left: 1rem;
+    }
+
+    tr a {
+        text-decoration: none;
+        color: #000;
+
+    }
+
+    tr {
+        border-collapse: collapse;
+        border-bottom: 1px solid #7DEDFF;
+    }
+
+    .heart {
+        color: red;
     }
 }
 

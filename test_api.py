@@ -17,8 +17,9 @@ cs = {
 
 all_users = dict()
 api = InstApi(cs)
-posts = api.get_10_posts_by_link("https://www.instagram.com/julie.rud/")
-
+posts = api.get_user_id_by_post_shortcode("CRkPgjPqVtv")
+print(posts)
+exit()
 for i, post in enumerate(posts):
     users = sorted(api.get_user_liked_post(post))
     for user in users:

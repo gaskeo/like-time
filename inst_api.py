@@ -14,9 +14,10 @@ class InstApi:
     def __init__(self, cookies):
         self.session = session()
         [self.session.cookies.set(n, m) for n, m in cookies.items()]
-        self.inst_text = self.session.get("https://instagram.com").text
         self.query_hash_for_likes = "d5d763b1e2acf209d62d22d184488e57"
         self.query_hash_for_posts = "ea4baf885b60cbf664b34ee760397549"
+        self.query_hash_for_post = "2efa04f61586458cef44441f474eee7c"
+        self.query_hash_for_account_id = "dbdfd83895d23a4a0b0f68a85486e91c"
 
     def get_user_liked_post(self, post_shortcode):
         variables = {
@@ -51,15 +52,19 @@ class InstApi:
             count_parsed += 50
         return user_liked
 
-    def get_user_id_by_link(self, link):
-        account_text = self.session.get(link).text
-        print(account_text)
-        user_id = account_text[account_text.index("profilePage_") + len("profilePage_"):]
-        user_id = user_id[:user_id.index('"')]
-        return user_id
+    def get_user_id_by_post_shortcode(self, shortcode):
+        response = self.session.get("https://www.instagram.com/graphql/query/", params={
+            "query_hash": self.query_hash_for_post,
+            "variables": dumps({"shortcode": shortcode,
+                                "child_comment_count": "0",
+                                "fetch_comment_count": "0",
+                                "parent_comment_count": "0",
+                                "has_threaded_comments": True
+                                })
+        })
+        return response.json()["data"]["shortcode_media"]["owner"]["id"]
 
-    def get_10_posts_by_link(self, link):
-        user_id = self.get_user_id_by_link(link)
+    def get_10_posts_by_user_id(self, user_id):
         variables = {
             "id": user_id,
             "first": 10

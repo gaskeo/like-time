@@ -4,4 +4,4 @@ from flask_wtf import FlaskForm
 
 
 class SearchForm(FlaskForm):
-    link_or_username = StringField()
+    shortcode_or_link = StringField()
