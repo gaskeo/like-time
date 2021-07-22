@@ -4,9 +4,8 @@ function showResult() {
     if (!(link_or_username.value.replace(/\s/g, '').length)) {
         link_or_username.placeholder = "впиши в меня что-нибудь, пожалуйста..."
         link_or_username.value = ""
-        return
+        return false
     }
-
     let form = new FormData()
     form.append("username_or_link", link_or_username.value)
 

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify
+from flask import Blueprint, render_template, jsonify, request
 from forms import SearchForm
 
 from urllib.parse import urlparse
@@ -14,7 +14,9 @@ def create_handler(api: InstApi):
     def do_search():
         form = SearchForm()
         username_or_link = form.username_or_link.data
-
+        if not username_or_link:
+            return jsonify({"answer": "error", "error-message": "empty"})
+        username_or_link = username_or_link.replace("@", "")
         if "/" not in username_or_link:
             user_id = api.get_user_id_by_username(username_or_link)
             if not user_id:
@@ -24,23 +26,18 @@ def create_handler(api: InstApi):
             parse_link = urlparse(username_or_link)
             path = parse_link.path
             sections = tuple(filter(len, path.split("/")))
-            print(sections)
 
             if "p" in sections:
                 user_id = api.get_user_id_by_post_shortcode(sections[-1])
                 if not user_id:
                     return jsonify({"answer": "error", "error-message": "пост не найден, возмжоно аккаунт приватный"})
             else:
-                print(13)
                 user_id = api.get_user_id_by_username(sections[-1])
-                print(user_id)
                 if not user_id:
                     return jsonify({"answer": "error", "error-message": "пользователь не найден,"
                                                                         " возмжоно аккаунт приватный"})
 
         all_users = dict()
-        if not user_id:
-            return jsonify({"answer": "error", "error-message": "пост не найден, возмжоно аккаунт приватный"})
         posts = api.get_10_posts_by_user_id(user_id)
         if not posts:
             return jsonify({"answer": "error", "error-message": "пост не найден, возмжоно аккаунт приватный"})

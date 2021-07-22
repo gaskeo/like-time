@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>title</title>
+    <title>Лайк тайм</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -22,16 +23,15 @@
 <div class="content" id="content">
     <div class="about">
         <p>
-            Сайт выдает таблицу, кто лайкал последние 10 постов в инстаграме.<br>только для открытых аккаунтов
+            Лайки на последних 10 постах.<br>только для открытых аккаунтов
         </p>
     </div>
     <div class="search-content">
         <label class="label-for-link-input" for="account-link-input">имя пользователя, ссылка на пользователя или на любой пост пользователя</label><br>
 
-        <form class="form">
+        <form class="form" onsubmit="return showResult()">
             <input class="account-link-input" id="account-link-input" type="text" placeholder="instagram.com/p/...">
-            <input class="account-link-send-button" id="send-button" type="submit" onclick="return showResult()"
-                   value="">
+            <input class="account-link-send-button" id="send-button" type="submit" value="">
         </form>
     </div>
     <div class="error" id="error">error</div>
@@ -40,6 +40,5 @@
 </div>
 </body>
 <script src="../static/js/submit_form.js"></script>
-<script>test()</script>
 
 </html>
