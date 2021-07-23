@@ -4,8 +4,8 @@ from redis import Redis
 
 from urllib.parse import urlparse
 
-from inst_api import InstApi
-from forms import SearchForm
+from api.inst_api import InstApi
+from forms.search_form import SearchForm
 
 
 def create_handler(api: InstApi, redis_api: Redis):

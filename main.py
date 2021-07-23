@@ -6,7 +6,8 @@ import secrets
 import os
 
 from blueprints import index, do_search
-from inst_api import InstApi
+from api.inst_api import InstApi
+
 
 cs = {
     "csrftoken": os.getenv("csrftoken"),

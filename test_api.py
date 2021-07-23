@@ -1,6 +1,6 @@
 import os
 
-from inst_api import InstApi
+from api.inst_api import InstApi
 
 
 cs = {
