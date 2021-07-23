@@ -1,5 +1,7 @@
 from flask import Flask
 
+import redis
+
 import secrets
 import os
 
@@ -18,12 +20,14 @@ cs = {
     'shbts': os.getenv("shbts")
 }
 api = InstApi(cs)
+redis_api = redis.Redis(password=os.getenv("redis_pass"))
+
 app = Flask(__name__)
 
 app.config["SECRET_KEY"] = secrets.token_hex(24)
 
 app.register_blueprint(index.create_handler())
-app.register_blueprint(do_search.create_handler(api))
+app.register_blueprint(do_search.create_handler(api, redis_api))
 
 if __name__ == "__main__":
     app.run(port=8080, host="0.0.0.0", use_reloader=True, debug=True)

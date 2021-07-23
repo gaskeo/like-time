@@ -1,21 +1,28 @@
-from flask import Blueprint, render_template, jsonify, request
-from forms import SearchForm
+from flask import Blueprint, jsonify, request
+
+from redis import Redis
 
 from urllib.parse import urlparse
 
 from inst_api import InstApi
+from forms import SearchForm
 
 
-def create_handler(api: InstApi):
+def create_handler(api: InstApi, redis_api: Redis):
     app = Blueprint("do_search", __name__)
-    api = api
 
     @app.route("/do_search", methods=["POST"])
     def do_search():
+        if redis_api.get(request.remote_addr):
+            return jsonify({"answer": "error", "error-message": "много запросов шлешь, меня в инсте заблокируюст... "
+                                                                "5 секунд между запросами должно быть..."})
         form = SearchForm()
         username_or_link = form.username_or_link.data
         if not username_or_link:
             return jsonify({"answer": "error", "error-message": "empty"})
+
+        redis_api.set(name=request.remote_addr, value=1, ex=5)
+
         username_or_link = username_or_link.replace("@", "")
         if "/" not in username_or_link:
             user_id = api.get_user_id_by_username(username_or_link)
