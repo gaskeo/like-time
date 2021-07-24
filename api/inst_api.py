@@ -9,12 +9,14 @@ class EmptyCookieError(Exception):
 
 
 class InstApi:
-    headers = {
+    HEADERS = {
         'user-agent':
             'Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 '
             '(KHTML, like Gecko) Mobile/15E148 Instagram 105.0.0.11.118 (iPhone11,8; iOS 12_3_1; en_US; '
             'en-US; scale=2.00; 828x1792; 165586599)'
     }
+    GRAPHQL_ADDRESS = "https://www.instagram.com/graphql/query/"
+    TOP_SEARCH_ADDRESS = "https://www.instagram.com/web/search/topsearch/"
 
     def __init__(self, cookies):
         self.session = session()
@@ -34,7 +36,7 @@ class InstApi:
             "first": 50
         }
 
-        g = self.session.get("https://www.instagram.com/graphql/query/", params={
+        g = self.session.get(self.GRAPHQL_ADDRESS, params={
             "query_hash": self.query_hash_for_likes,
             "variables": dumps(variables)
         })
@@ -71,7 +73,7 @@ class InstApi:
                 "after": f"{after}"
             }
 
-            g = self.session.get("https://www.instagram.com/graphql/query/", params={
+            g = self.session.get(self.GRAPHQL_ADDRESS, params={
                 "query_hash": self.query_hash_for_likes,
                 "variables": dumps(variables)
             })
@@ -90,7 +92,7 @@ class InstApi:
                      "has_threaded_comments": True
                      }
 
-        response = self.session.get("https://www.instagram.com/graphql/query/", params={
+        response = self.session.get(self.GRAPHQL_ADDRESS, params={
             "query_hash": self.query_hash_for_post,
             "variables": dumps(variables)
         })
@@ -111,7 +113,7 @@ class InstApi:
             "first": 10
         }
 
-        response = self.session.get("https://www.instagram.com/graphql/query", params={
+        response = self.session.get(self.GRAPHQL_ADDRESS, params={
             "query_hash": self.query_hash_for_posts,
             "variables": dumps(variables)
         })
@@ -124,8 +126,8 @@ class InstApi:
         return [x["node"]["shortcode"] for x in posts["data"]["user"]["edge_owner_to_timeline_media"]["edges"]]
 
     def get_user_id_by_username(self, username):
-        response = get(f"https://www.instagram.com/web/search/topsearch", params={"query": username},
-                       headers=self.headers)
+        response = get(self.TOP_SEARCH_ADDRESS, params={"query": username},
+                       headers=self.HEADERS)
         try:
             json = response.json()
         except JSONDecodeError:
@@ -140,5 +142,3 @@ class InstApi:
 
         return None
 
-    def check_account_exist(self, username):
-        return self.session.get(f"https://instagram.com/{username}").status_code == 200
