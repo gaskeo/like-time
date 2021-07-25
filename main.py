@@ -4,10 +4,12 @@ import redis
 
 import secrets
 import os
+from loguru import logger
 
 from blueprints import index, do_search
 from api.inst_api import InstApi
 
+logger.add("logs.log", format="{time} {level} {message}", level="INFO", rotation="10 KB", compression="zip")
 
 cs = {
     "csrftoken": os.getenv("csrftoken"),
