@@ -1,11 +1,19 @@
+html {
+    min-height: 100vh;
+}
+
 body {
+    min-height: 100vh;
     margin: 0;
     padding: 0;
     background-color: #FFF;
-    z-index: 1;
 }
 
+
 header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
     background-color: #88FFF7;
     margin: 0;
@@ -13,9 +21,16 @@ header {
     line-height: 100%;
 }
 
+
+.header-link {
+    font-family: "Noto Sans", sans-serif;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
 .logo {
     font-family: "Istok Web", sans-serif;
-    display: block;
+    display: inline;
     vertical-align: middle;
     text-decoration: none;
     color: black;
@@ -130,6 +145,12 @@ tr {
         line-height: 5rem;
     }
 
+    .header-link {
+        margin-right: 15%;
+        font-size: 1em;
+        line-height: 5rem;
+    }
+
     .content {
         width: 80%;
         margin-left: 10%;
@@ -191,6 +212,12 @@ tr {
     .logo {
         margin-left: 5%;
         font-size: 3em;
+        line-height: 7rem;
+    }
+
+    .header-link {
+        margin-right: 5%;
+        font-size: 2em;
         line-height: 7rem;
     }
 
