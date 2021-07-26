@@ -2,9 +2,8 @@ from flask import Blueprint, jsonify, request
 
 from redis import Redis
 
-from urllib.parse import urlparse
-
 from loguru import logger
+from urllib.parse import urlparse
 
 from api.inst_api import InstApi
 from forms.search_form import SearchForm

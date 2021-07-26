@@ -25,7 +25,7 @@ cs = {
 api = InstApi(cs)
 redis_api = redis.Redis(password=os.getenv("redis_pass"))
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
 
 app.config["SECRET_KEY"] = secrets.token_hex(24)
 
