@@ -23,7 +23,12 @@ cs = {
     'shbts': os.getenv("shbts")
 }
 api = InstApi(cs)
-redis_api = redis.Redis(password=os.getenv("redis_pass"))
+
+redis_api = redis.Redis(
+    password=os.getenv("redis_pass"),
+    host=os.getenv("redis_host") or "localhost",
+    port=os.getenv("redis_port") or 6379
+)
 
 app = Flask(__name__, template_folder="templates")
 
