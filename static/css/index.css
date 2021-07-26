@@ -15,10 +15,9 @@ header {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    background-color: #88FFF7;
+    background-color: #88fff7;
     margin: 0;
     padding: 0;
-    line-height: 100%;
 }
 
 
@@ -26,6 +25,12 @@ header {
     font-family: "Noto Sans", sans-serif;
     text-decoration: none;
     vertical-align: middle;
+    transition: 0.5s;
+    color: dodgerblue;
+}
+
+.header-link:hover {
+    color: black;
 }
 
 .logo {
@@ -34,6 +39,11 @@ header {
     vertical-align: middle;
     text-decoration: none;
     color: black;
+    transition: 0.5s;
+}
+
+.logo:hover {
+    color: #6B72EC;
 }
 
 .about {
@@ -67,9 +77,14 @@ header {
     flex: 1;
     -webkit-appearance: none;
     border: none;
+    outline: none;
     vertical-align: center;
     border-radius: 0 15px 15px 0;
     background: #7C83FD url("/static/images/icons/SVG/magnifier.svg") no-repeat center;
+}
+
+.account-link-send-button:focus {
+    background-color: #6B72EC;
 }
 
 .account-link-send-button:disabled {
