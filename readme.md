@@ -36,7 +36,7 @@ The site gives you a table of who liked your posts on instagram
 
 1. run command ```python main.py```
 
-2. go to ```https://127.0.0.1:8080``` in your browser
+2. go to https://127.0.0.1:8080 in your browser
 
 
 ## Usage only instagram api
