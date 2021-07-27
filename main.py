@@ -38,4 +38,4 @@ app.register_blueprint(index.create_handler())
 app.register_blueprint(do_search.create_handler(api, redis_api))
 
 if __name__ == "__main__":
-    app.run(port=8080, host="0.0.0.0", use_reloader=True, debug=True)
+    app.run(host="0.0.0.0")
