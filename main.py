@@ -30,6 +30,8 @@ redis_api = redis.Redis(
     port=os.getenv("redis_port") or 6379
 )
 
+redis_api.ping()  # check connection
+
 app = Flask(__name__, template_folder="templates")
 
 app.config["SECRET_KEY"] = secrets.token_hex(24)
